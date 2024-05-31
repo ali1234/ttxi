@@ -1,0 +1,9 @@
+[package]
+name = "ttxi"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+crossterm = "0.27.0"
+teletext = "0.1.0"
+socket2 = "0.5.7"
