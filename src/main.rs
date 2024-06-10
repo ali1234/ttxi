@@ -13,7 +13,7 @@ use std::sync::mpsc::{self, Receiver, SendError};
 use std::{thread};
 use std::net::SocketAddr;
 
-
+use clap::Parser;
 use crossterm::event::{Event, KeyCode, KeyEvent};
 use socket2::{Socket, Domain, Type};
 
@@ -92,9 +92,15 @@ fn spawn_event_channel(source: String) -> io::Result<Receiver<MyEvent>> {
 }
 
 
+#[derive(Parser)]
+struct Args {
+    source: String,
+}
+
+
 fn main() -> io::Result<()> {
-    let source = std::env::args().nth(1).expect("No source given");
-    let event_channel = spawn_event_channel(source)?;
+    let args = Args::parse();
+    let event_channel = spawn_event_channel(args.source)?;
 
     let mut decoder = Decoder::new()?;
 
