@@ -54,6 +54,11 @@ impl Drop for CharGen {
 
 impl CharGen {
     pub fn new() -> io::Result<CharGen> {
+        let (cols, rows) = size()?;
+        if cols < 41 || rows < 25 {
+            return Err(io::Error::new(io::ErrorKind::Other, "Terminal too small - 41x25 required."))
+        }
+
         let chargen = CharGen {
             grid: [[0; 40]; 26],
             character_set: CharacterSet::Latin(NationalOption::English),
