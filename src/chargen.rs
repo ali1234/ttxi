@@ -159,6 +159,7 @@ impl CharGen {
     }
 
     fn term_color(&self, color: u8) -> Color {
+/*
         match color {
             0 => Color::Black,
             1 => Color::Red,
@@ -168,6 +169,17 @@ impl CharGen {
             5 => Color::Magenta,
             6 => Color::Cyan,
             _ => Color::White,
+        }
+*/
+        match color {
+            0 => Color::Rgb{r:0, g:0, b:0},
+            1 => Color::Rgb{r:255, g:0, b:0},
+            2 => Color::Rgb{r:0, g:255, b:0},
+            3 => Color::Rgb{r:255, g:255, b:0},
+            4 => Color::Rgb{r:0, g:0, b:255},
+            5 => Color::Rgb{r:255, g:0, b:255},
+            6 => Color::Rgb{r:0, g:255, b:255},
+            _ => Color::Rgb{r:255, g:255, b:255},
         }
     }
 
@@ -230,7 +242,7 @@ impl CharGen {
         let bg = if self.mix {
             Color::Reset
         } else {
-            Color::Black
+            self.term_color(0)
         };
 
         execute!(out, SetBackgroundColor(bg), Print("     "))
